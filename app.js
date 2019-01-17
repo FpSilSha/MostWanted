@@ -108,3 +108,12 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+function calculatePersonsAge(dob) {
+  let monthDifference = Date.now() - dob.getTime();
+  let ageDate = new Date(monthDifference);
+
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+console.log(calculatePersonsAge(new Date(1940, 11, 4)));
+console.log(calculatePersonsAge(new Date(1962, 1, 1)));

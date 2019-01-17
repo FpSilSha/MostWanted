@@ -79,9 +79,16 @@ function displayPerson(person){
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display
-  console.log("");
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo +="dob: " + person.dob + "\n";
+ // personInfo +="Age: " + person.age + "\n";
+  personInfo +="Height: " + person.height + "\n";
+  personInfo +="Weight: " + person.weight + "\n";
+  personInfo +="EyeColor: " + person.eyeColor + "\n";
+  personInfo +="Occupation: " + person.occupation + "\n";
+  personInfo +="Parents: " + person.parents + "\n";
+  personInfo +="Spouse: " + person.spouse + "\n";
   alert(personInfo);
-  console.log("");
 }
 
 // function that prompts and validates user input

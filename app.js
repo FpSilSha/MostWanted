@@ -22,7 +22,9 @@ function app(people){
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
+  /* Here we pass in the entire person object that we found in our search, 
+  as well as the entire original dataset of people. 
+  We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
     alert("Could not find that individual.");
@@ -62,7 +64,6 @@ function searchByName(people){
   });
 
   // TODO: What to do with filteredPeople?
-
 }
 
 // alerts a list of people
@@ -78,7 +79,9 @@ function displayPerson(person){
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display
+  console.log("");
   alert(personInfo);
+  console.log("");
 }
 
 // function that prompts and validates user input

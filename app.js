@@ -78,10 +78,9 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  // TODO: finish getting the rest of the information to display
   personInfo += "Gender: " + person.gender + "\n";
   personInfo +="dob: " + person.dob + "\n";
- // personInfo +="Age: " + person.age + "\n";
+  personInfo +="Age: " + person.age + "\n";
   personInfo +="Height: " + person.height + "\n";
   personInfo +="Weight: " + person.weight + "\n";
   personInfo +="EyeColor: " + person.eyeColor + "\n";
@@ -109,11 +108,8 @@ function chars(input){
   return true; // default validation only
 }
 function calculatePersonsAge(dob) {
-  let monthDifference = Date.now() - dob.getTime();
-  let ageDate = new Date(monthDifference);
+  let timeDifference = Date.now() - dob.getTime();
+  let ageInMilliseconds = new Date(timeDifference);
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
-
-console.log(calculatePersonsAge(new Date(1940, 11, 4)));
-console.log(calculatePersonsAge(new Date(1962, 1, 1)));

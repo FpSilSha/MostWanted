@@ -7,10 +7,12 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':    
-      searchByName(people);
+      
+    let foundPeople = searchByName(people);
+      mainMenu(foundPeople,people)
       break;
     case 'no':
-      // TODO: search by traits
+      
       break;
     default:
       alert("Invalid input. Please try again!");
@@ -31,30 +33,33 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+ 
+ person.forEach(function(el){
 
-  switch(displayOption){
-    case "info":
-      // TODO: get person's info
-      displayPerson(person[0]);
-      mainMenu(person, people);
-      break;
-    case "family":
-      // TODO: get person's family
-      mainMenu(person, people);
-      break;
-    case "descendants":
-      // TODO: get person's descendants
-      mainMenu(person, people);
-      break;
-    case "restart":
-      app(people); // restart
-      break;
-    case "quit":
-      return; // stop execution
-    default:
-      return mainMenu(person, people); // ask again
-  }
+    var displayOption = prompt("Found " + el.firstName + " " + el.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+
+    switch(displayOption){
+      case "info":
+        // TODO: get person's info
+        displayPerson(el);
+        break;
+      case "family":
+        // TODO: get person's family
+        mainMenu(person, people);
+        break;
+      case "descendants":
+        // TODO: get person's descendants
+        mainMenu(person, people);
+        break;
+      case "restart":
+        app(people); // restart
+        break;
+      case "quit":
+        return; // stop execution
+      default:
+        return mainMenu(person, people); // ask again
+    }
+  });
 }
 
 function searchByName(people){
@@ -72,8 +77,9 @@ function searchByName(people){
     } 
     
   });
-  mainMenu(filteredPeople,people)
- 
+ return filteredPeople;
+  //mainMenu(filteredPeople,people)
+ //runForMultiplePeople
 }
 
 // alerts a list of people
@@ -136,3 +142,38 @@ function capitalizeName(input) {
   
 }
 
+/*
+function runForMultiplePeople(funct){
+   person.forEach(function(el){
+      funct()
+}
+}*/
+// test area
+let half = [{
+    "id": 693243224,
+    "firstName": "Joy",
+    "lastName": "Madden",
+    "gender": "female",
+    "dob": "4/20/1939",
+    "height": 69,
+    "weight": 199,
+    "eyeColor": "hazel",
+    "occupation": "doctor",
+    "parents": [],
+    "currentSpouse": null
+  },
+  {
+    "id": 888201200,
+    "firstName": "Mader",
+    "lastName": "Madden",
+    "gender": "male",
+    "dob": "5/6/1937",
+    "height": 76,
+    "weight": 205,
+    "eyeColor": "black",
+    "occupation": "landscaper",
+    "parents": [],
+    "currentSpouse": null
+  },]
+
+//mainMenu(half,data)

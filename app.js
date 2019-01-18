@@ -8,6 +8,7 @@ function app(people){
   switch(searchType){
     case 'yes':
       // TODO: search by name
+      searchByName();
       break;
     case 'no':
       // TODO: search by traits
@@ -113,3 +114,16 @@ function calculatePersonsAge(dob) {
 
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
+
+
+function capitalizeName(input) {
+  
+  input = input.toLowerCase().split(' ');
+  for (let i = 0; i < input.length; i++) {
+      input[i] = input[i].charAt(0).toUpperCase() + input[i].slice(1); 
+    
+    }
+  return input.join(' ');
+  
+}
+

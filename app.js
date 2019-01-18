@@ -35,7 +35,6 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-
       // TODO: get person's info
       displayPerson(person[0]);
       mainMenu(person, people);
@@ -62,11 +61,12 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
       firstName = capitalizeName(firstName)
+
       lastName = capitalizeName(lastName)       
       let filteredPeople = people.filter(function(el) {
         if(el.firstName === firstName && el.lastName === lastName) {
+     
 
-      
           return true;
 
     } 

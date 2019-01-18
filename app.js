@@ -64,6 +64,7 @@ function searchByName(people){
       let filteredPeople = people.filter(function(el) {
         if(el.firstName === firstName && el.lastName === lastName) {
      
+
           return true;
 
     } 
@@ -114,7 +115,7 @@ function chars(input){
   return true; // default validation only
 }
 function calculatePersonsAge(dob) {
-
+  dob = new Date(dob)
   let timeDifference = Date.now() - dob.getTime();
   let ageInMilliseconds = new Date(timeDifference);
 

@@ -6,9 +6,8 @@ Build all of your functions for displaying and gathering information below (GUI)
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
-    case 'yes':
-      // TODO: search by name
-      searchByName();
+    case 'yes':    
+      searchByName(people);
       break;
     case 'no':
       // TODO: search by traits
@@ -31,7 +30,7 @@ function mainMenu(person, people){
     alert("Could not find that individual.");
     return app(people); // restart
   }
-
+console.log(person.firstName)
   var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
@@ -55,16 +54,20 @@ function mainMenu(person, people){
 }
 
 function searchByName(people){
-  var firstName = promptFor("What is the person's first name?", chars);
-  var lastName = promptFor("What is the person's last name?", chars);
-
+  let firstName = promptFor("What is the person's first name?", chars);
+  let lastName = promptFor("What is the person's last name?", chars);
+      firstName = capitalizeName(firstName)
+      lastName = capitalizeName(lastName)
   let filteredPeople = people.filter(function(el) {
-    if(el.firstName === firstName && el.lastName === lastName) {
-      return el;
-    }
-  });
+  if(el.firstName === firstName && el.lastName === lastName) {
+      
+      return true;
 
-  // TODO: What to do with filteredPeople?
+    } 
+    
+  });
+  mainMenu(filteredPeople,people)
+ 
 }
 
 // alerts a list of people
@@ -109,6 +112,7 @@ function chars(input){
   return true; // default validation only
 }
 function calculatePersonsAge(dob) {
+
   let timeDifference = Date.now() - dob.getTime();
   let ageInMilliseconds = new Date(timeDifference);
 

@@ -35,12 +35,10 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-<<<<<<< HEAD
-   
-=======
+
       // TODO: get person's info
       displayPerson(person[0]);
->>>>>>> 88b51029f5f67b2f09756287ef01b6097156c171
+
       break;
     case "family":
       // TODO: get person's family
@@ -62,16 +60,10 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
       firstName = capitalizeName(firstName)
-<<<<<<< HEAD
       lastName = capitalizeName(lastName)       
       let filteredPeople = people.filter(function(el) {
         if(el.firstName === firstName && el.lastName === lastName) {
-=======
-      lastName = capitalizeName(lastName)
-  let filteredPeople = people.filter(function(el) {
 
-  if(el.firstName === firstName && el.lastName === lastName) {
->>>>>>> 88b51029f5f67b2f09756287ef01b6097156c171
       
           return true;
 
@@ -123,11 +115,11 @@ function chars(input){
   return true; // default validation only
 }
 function calculatePersonsAge(dob) {
-
+  dob = new Date(dob)
   let timeDifference = Date.now() - dob.getTime();
   let ageInMilliseconds = new Date(timeDifference);
 
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
+  return Math.abs(ageInMilliseconds.getUTCFullYear() - 1970);
 }
 
 

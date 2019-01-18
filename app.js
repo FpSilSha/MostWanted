@@ -6,7 +6,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
-    case 'yes':
+    case 'yes':    
       searchByName(people);
       break;
     case 'no':
@@ -31,11 +31,12 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
     case "info":
       // TODO: get person's info
+      displayPerson(person[0]);
       break;
     case "family":
       // TODO: get person's family
@@ -54,18 +55,21 @@ function mainMenu(person, people){
 }
 
 function searchByName(people){
-  var firstName = promptFor("What is the person's first name?", chars);
-  var lastName = promptFor("What is the person's last name?", chars);
-
+  let firstName = promptFor("What is the person's first name?", chars);
+  let lastName = promptFor("What is the person's last name?", chars);
+      firstName = capitalizeName(firstName)
+      lastName = capitalizeName(lastName)
   let filteredPeople = people.filter(function(el) {
-    if(el.firstName === firstName && el.lastName === lastName) {
+
+  if(el.firstName === firstName && el.lastName === lastName) {
       
-      return el;
-    }
+      return true;
+
+    } 
+    
   });
-
-
-  // TODO: What to do with filteredPeople?
+  mainMenu(filteredPeople,people)
+ 
 }
 
 // alerts a list of people
@@ -87,8 +91,6 @@ function displayPerson(person){
   personInfo +="Weight: " + person.weight + "\n";
   personInfo +="EyeColor: " + person.eyeColor + "\n";
   personInfo +="Occupation: " + person.occupation + "\n";
-  personInfo +="Parents: " + person.parents + "\n";
-  personInfo +="Spouse: " + person.spouse + "\n";
   alert(personInfo);
 }
 
@@ -110,6 +112,7 @@ function chars(input){
   return true; // default validation only
 }
 function calculatePersonsAge(dob) {
+
   let timeDifference = Date.now() - dob.getTime();
   let ageInMilliseconds = new Date(timeDifference);
 

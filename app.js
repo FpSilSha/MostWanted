@@ -37,13 +37,15 @@ function mainMenu(person, people){
     case "info":
       // TODO: get person's info
       displayPerson(person[0]);
-
+      mainMenu(person, people);
       break;
     case "family":
       // TODO: get person's family
+      mainMenu(person, people);
       break;
     case "descendants":
       // TODO: get person's descendants
+      mainMenu(person, people);
       break;
     case "restart":
       app(people); // restart

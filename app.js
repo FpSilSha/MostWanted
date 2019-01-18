@@ -7,8 +7,7 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-      // TODO: search by name
-      searchByName();
+      searchByName(people);
       break;
     case 'no':
       // TODO: search by traits
@@ -60,9 +59,11 @@ function searchByName(people){
 
   let filteredPeople = people.filter(function(el) {
     if(el.firstName === firstName && el.lastName === lastName) {
+      
       return el;
     }
   });
+
 
   // TODO: What to do with filteredPeople?
 }
@@ -126,4 +127,5 @@ function capitalizeName(input) {
   return input.join(' ');
   
 }
+
 

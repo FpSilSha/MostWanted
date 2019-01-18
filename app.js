@@ -35,7 +35,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-      // TODO: get person's info
+   
       break;
     case "family":
       // TODO: get person's family
@@ -57,11 +57,11 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
       firstName = capitalizeName(firstName)
-      lastName = capitalizeName(lastName)
-  let filteredPeople = people.filter(function(el) {
-  if(el.firstName === firstName && el.lastName === lastName) {
+      lastName = capitalizeName(lastName)       
+      let filteredPeople = people.filter(function(el) {
+        if(el.firstName === firstName && el.lastName === lastName) {
       
-      return true;
+          return true;
 
     } 
     
@@ -80,17 +80,16 @@ function displayPeople(people){
 function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
+
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
   personInfo +="dob: " + person.dob + "\n";
-  personInfo +="Age: " + person.age + "\n";
+  personInfo +="Age: " + calculatePersonsAge(person.dob)+ "\n";
   personInfo +="Height: " + person.height + "\n";
   personInfo +="Weight: " + person.weight + "\n";
   personInfo +="EyeColor: " + person.eyeColor + "\n";
   personInfo +="Occupation: " + person.occupation + "\n";
-  personInfo +="Parents: " + person.parents + "\n";
-  personInfo +="Spouse: " + person.spouse + "\n";
   alert(personInfo);
 }
 

@@ -38,18 +38,17 @@ function mainMenu(person, people){
 
     var displayOption = prompt("Found " + el.firstName + " " + el.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
-    switch(displayOption){
+    switch(displayOption){  
       case "info":
-        // TODO: get person's info
         displayPerson(el);
         break;
       case "family":
         // TODO: get person's family
-        mainMenu(person, people);
+        
         break;
       case "descendants":
         // TODO: get person's descendants
-        mainMenu(person, people);
+       
         break;
       case "restart":
         app(people); // restart
@@ -177,3 +176,19 @@ let half = [{
   },]
 
 //mainMenu(half,data)
+
+function searchByTrait(people) {
+
+
+
+  let filteredPeople = people.filter(function(el) {
+        if(el.trait === trait && el.trait ===trait) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}

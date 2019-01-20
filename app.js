@@ -12,8 +12,15 @@ function app(people){
       mainMenu(foundPeopleByName,people);
       break;
     case 'no':
-    let foundPeopleByGender = searchByGender(people);
-      mainMenu(foundPeopleByGender,people);
+        let numberOfTraits = promptFor("Would you like to look for only one trait? Enter 'yes' or 'no'", yesNo).toLowerCase();
+        switch(numberOfTraits){
+          case 'yes':
+            let foundPeopleBySingleTrait = selectingAttribute(people);
+            mainMenu(foundPeopleBySingleTrait,people);
+              break;
+          case 'no':
+            let foundPeopleByMultiTraits;
+        }
       break;
     default:
       alert("Invalid input. Please try again!");
@@ -139,8 +146,8 @@ function capitalizeName(input) {
     
     }
   return input.join(' ');
-  
-}
+  }
+
 function searchByTrait(people){
  
     let traits = ["gender", "age", "height", "weight", "eyeColor", "occupation"];
@@ -164,12 +171,152 @@ function searchByTrait(people){
          
 
 }
-/*
-function runForMultiplePeople(funct){
-   person.forEach(function(el){
-      funct()
+
+
+
+
+function searchByGender(people) {
+  let gender = promptFor("What gender is your person? Enter 'male' or 'female'", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.gender === gender.toLowerCase()) {
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
 }
-}*/
+/*
+function searchByAge(people) {
+  let age = promptFor("What is the person's age?", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.age === age) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+
+function searchByDOB(people) {
+  let dob = promptFor("What is the person's Date of Birth? Please enter in m/d/yyyy format", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.dob === dob) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+
+*/
+function searchByHeight(people) {
+  let height = promptFor("How tall is the person in inches?", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.height == height) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+
+function searchByWeight(people) {
+  let weight = promptFor("How much does your person weigh in pounds?", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.weight === weight.toLowerCase()) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+
+function searchByEyeColor(people) {
+  let eyeColor = promptFor("What is the person's Eye Color", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.eyeColor=== eyeColor.toLowerCase()) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+
+function searchByOccupation(people) {
+  let occupation = promptFor("What is the person's occupation?", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.occupation === occupation.toLowerCase()) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+function selectingAttribute(people){
+  let response = promptFor("What attribute do with wish to search for (Gender, Date of Birth, Height, Weight, Eye Color, Occupation)?", chars);
+  response.toLowerCase().trim().split(" ").join("");
+  
+  switch(response){
+    case "gender":
+      let peopleByGender = searchByGender(people);
+      return peopleByGender;
+   // case "dateofbirth":
+    //  let peopleByDOB searchByDOB(people);
+    //  return peopleByDOB;
+  //  case "age":
+    //  let peopleByAge = searchByAge(people);
+    //  return peopleByAge;
+    case "height":
+      let peopleByHeight = searchByHeight(people);
+      return peopleByHeight;
+    case "weight":
+      let peopleByWeight = searchByWeight(people);
+      return peopleByWeight;
+    case "eyecolor":
+      let peopleByEyeColor = searchByEyeColor(people);
+      return peopleByEyeColor;
+    case "occupation":
+      let peopleByOccupation = searchByOccupation(people);
+      return peopleByOccupation;
+    default:
+      console.log("Do you even know who you're looking for? Start the search again when you find out SOMETHING.")
+      break;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // test area
 let half = [{
     "id": 693243224,
@@ -201,71 +348,3 @@ let half = [{
 //mainMenu(half,data)
 
 
-function searchByGender(people) {
-  let gender = promptFor("What gender is your person? Enter 'male' or 'female'", chars);
-  let filteredPeople = people.filter(function(el) {
-        if(el.gender === gender.toLowerCase()) {
-
-          return true;
-
-    } 
-    
-  });
- return filteredPeople;
-}
-/*
-function searchByAge(people) {
-  let gender = promptFor("What gender is your person? Enter 'male' or 'female'", chars);
-  let filteredPeople = people.filter(function(el) {
-        if(el.gender === gender) {
-     
-
-          return true;
-
-    } 
-    
-  });
- return filteredPeople;
-}
-*/
-function searchByHeight(people) {
-  let height = promptFor("How tall is the person in inches?", chars);
-  let filteredPeople = people.filter(function(el) {
-        if(el.height === height) {
-     
-
-          return true;
-
-    } 
-    
-  });
- return filteredPeople;
-}
-
-function searchByWeight(people) {
-  let weight = promptFor("How much does your person weigh in pounds?", chars);
-  let filteredPeople = people.filter(function(el) {
-        if(el.weight === weight.toLowerCase()) {
-     
-
-          return true;
-
-    } 
-    
-  });
- return filteredPeople;
-}
-
-function searchByOccupation(people) {
-  let occupation = promptFor("What is the person's occupation?", chars);
-  let filteredPeople = people.filter(function(el) {
-        if(el.occupation === occupation.toLowerCase()) {
-     
-
-          return true;
-
-    } 
-    
-  });
- return filteredPeople;
-}

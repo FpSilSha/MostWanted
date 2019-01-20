@@ -348,4 +348,3 @@ let half = [{
 //mainMenu(half,data)
 
 
-

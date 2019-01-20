@@ -58,7 +58,7 @@ function mainMenu(person, people){
       case "quit":
         return; // stop execution
       default:
-        return mainMenu(person, people); // ask again
+        return mainMenu(person, people); // ask again  
     }
   });
 }
@@ -123,8 +123,8 @@ function chars(input){
   return true; // default validation only
 }
 function calculatePersonsAge(dob) {
-  dob = new Date(dob)
-  let timeDifference = Date.now() - dob.getTime();
+  dob = new Date(dob);
+  let timeDifference = Date.now() - dob.getTime();f
   let ageInMilliseconds = new Date(timeDifference);
 
   return Math.abs(ageInMilliseconds.getUTCFullYear() - 1970);

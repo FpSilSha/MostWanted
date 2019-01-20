@@ -8,11 +8,12 @@ function app(people){
   switch(searchType){
     case 'yes':    
       
-    let foundPeople = searchByName(people);
-      mainMenu(foundPeople,people)
+    let foundPeopleByName = searchByName(people);
+      mainMenu(foundPeopleByName,people);
       break;
     case 'no':
-      
+    let foundPeopleByGender = searchByGender(people);
+      mainMenu(foundPeopleByGender,people);
       break;
     default:
       alert("Invalid input. Please try again!");
@@ -40,6 +41,7 @@ function mainMenu(person, people){
 
     switch(displayOption){  
       case "info":
+
         displayPerson(el);
         break;
       case "family":
@@ -48,7 +50,7 @@ function mainMenu(person, people){
         break;
       case "descendants":
         // TODO: get person's descendants
-       
+
         break;
       case "restart":
         app(people); // restart
@@ -65,7 +67,6 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
       firstName = capitalizeName(firstName)
-
       lastName = capitalizeName(lastName)       
       let filteredPeople = people.filter(function(el) {
         if(el.firstName === firstName && el.lastName === lastName) {
@@ -140,7 +141,29 @@ function capitalizeName(input) {
   return input.join(' ');
   
 }
+function searchByTrait(people){
+ 
+    let traits = ["gender", "age", "height", "weight", "eyeColor", "occupation"];
+        let searchingTraits = traits.map(function(el){
+           return promptFor("What is their " +el+"?"+"\n Height is in inches, weight is in pounds, if not known input 'n'", chars);
+        
+    });
 
+    for(let i=0; i<searchingTraits.length; i++){
+        let trait = searchingTraits[i];
+        let filteredPeople = people.filter(function(el) {
+               if(el[traits[i]] ===trait) {
+     
+
+                     return true;
+
+                } 
+    
+           });
+    } 
+         
+
+}
 /*
 function runForMultiplePeople(funct){
    person.forEach(function(el){
@@ -177,12 +200,66 @@ let half = [{
 
 //mainMenu(half,data)
 
-function searchByTrait(people) {
 
-
-
+function searchByGender(people) {
+  let gender = promptFor("What gender is your person? Enter 'male' or 'female'", chars);
   let filteredPeople = people.filter(function(el) {
-        if(el.trait === trait && el.trait ===trait) {
+        if(el.gender === gender.toLowerCase()) {
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+/*
+function searchByAge(people) {
+  let gender = promptFor("What gender is your person? Enter 'male' or 'female'", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.gender === gender) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+*/
+function searchByHeight(people) {
+  let height = promptFor("How tall is the person in inches?", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.height === height) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+
+function searchByWeight(people) {
+  let weight = promptFor("How much does your person weigh in pounds?", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.weight === weight.toLowerCase()) {
+     
+
+          return true;
+
+    } 
+    
+  });
+ return filteredPeople;
+}
+
+function searchByOccupation(people) {
+  let occupation = promptFor("What is the person's occupation?", chars);
+  let filteredPeople = people.filter(function(el) {
+        if(el.occupation === occupation.toLowerCase()) {
      
 
           return true;

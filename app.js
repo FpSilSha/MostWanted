@@ -55,7 +55,8 @@ function mainMenu(person, people){
         // TODO: get person's family
         //let parents = searchForParents(person, people);
        //console.log(parents);
-       displaySpouse(el, people);
+       //displaySpouse(el, people);
+       searchForParents(el, people);
         break;
       case "descendants":
         // TODO: get person's descendants
@@ -76,11 +77,10 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
       firstName = capitalizeName(firstName)
-      lastName = capitalizeName(lastName)       
+      lastName = capitalizeName(lastName)
       let filteredPeople = people.filter(function(el) {
         if(el.firstName === firstName && el.lastName === lastName) {
     
-
           return true;
 
     } 
@@ -170,8 +170,7 @@ function searchByTrait(people){
     
            });
     } 
-         
-
+        
 }
 function searchByGender(people) {
   let gender = promptFor("What gender is your person? Enter 'male' or 'female'", chars);
@@ -215,11 +214,20 @@ function searchForSpouse(person, people){
     });
 }*/
 function searchForParents (person, people) {
-  var personsFamily;
-  for (let i = 0; i < parents.length; i++) {
-      personsFamily += "Parent:" + parents[i].firstName + " " + parents[i].lastName + "/n";
+  let personsFamily;
+  for (let i = 0; i < person.parents.length; i++) {
+      parent = person.parents[i];
+     
+          foundParent =  people.filter(function(el){
+          if (el.id === parent) {
+            return true;
+          }
+      });
+      alert( "Parent: " + foundParent[0].firstName + " " + foundParent[0].lastName + "\n");
   }
+  alert(personsFamily);
 }
+
 /*function searchForParents(person, people) {
 
   let filteredPeople = people.filter(function(el) {
@@ -270,8 +278,6 @@ function searchByHeight(people) {
   let height = promptFor("How tall is the person in inches?", chars);
   let filteredPeople = people.filter(function(el) {
         if(el.height == height) {
-     
-
           return true;
 
     } 

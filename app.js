@@ -55,8 +55,12 @@ function mainMenu(person, people){
         // TODO: get person's family
         //let parents = searchForParents(person, people);
        //console.log(parents);
-       //displaySpouse(el, people);
+       findFamily(el, people);
+       /*
+       displaySpouse(el, people);
        searchForParents(el, people);
+       lookForKids(el, people);
+       */
         break;
       case "descendants":
         // TODO: get person's descendants
@@ -72,6 +76,12 @@ function mainMenu(person, people){
     }
   });
 }
+function findFamily(el, people) {
+    displaySpouse(el, people);
+    searchForParents(el, people);
+    lookForKids(el, people);
+}
+
 
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
@@ -188,13 +198,43 @@ function searchByGender(people) {
 function getSpouse (person, people) {
    let spouse = people.filter(function(el){
     if (person.currentSpouse === el.id) {
-      console.log(person.currentSpouse);
+      
       return true;
     }
     
   });
 return spouse;
    }
+
+function lookForKids (person, people) {
+  let kid = people.filter(function(el) {
+    if (person.id === el.parents[0]) {
+      
+      return true;
+    }
+  });
+  for (let i = 0; i < kid.length; i++){
+    alert("Kids: " + kid[i].firstName + " " + kid[i].lastName + "\n");
+  }
+  
+}
+
+function searchForKids (person, people) {
+  let personsFamily;
+  for (let i = 0; i < person.parents.length; i++) {
+    parent = person.parents[i];
+    foundParent = people.filter(function(el){
+        if (el.id === parent) {
+            return true; 
+        }
+      });
+    let personsParent = foundParent[0].id; //the original person's parent
+
+      if (personsParent = people.id) {
+        alert(person.firstName);
+      }
+    }
+}
 
 function displaySpouse(person, people) {
     if (person.currentSpouse != null) {
@@ -205,14 +245,7 @@ function displaySpouse(person, people) {
     }
     alert(personsFamily);
 }
-/*
-function searchForSpouse(person, people){
-    let filteredPeople = people.filter(function(el) {
-      if (el.currentSpouse === el.id) {
-        return true;
-      }
-    });
-}*/
+
 function searchForParents (person, people) {
   let personsFamily;
   for (let i = 0; i < person.parents.length; i++) {
@@ -225,8 +258,9 @@ function searchForParents (person, people) {
       });
       alert( "Parent: " + foundParent[0].firstName + " " + foundParent[0].lastName + "\n");
   }
-  alert(personsFamily);
+  
 }
+
 
 /*function searchForParents(person, people) {
 
@@ -358,5 +392,3 @@ function selectingAttribute(people){
       break;
   }
 }
-
-

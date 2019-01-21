@@ -1,6 +1,3 @@
-/*
-Build all of your functions for displaying and gathering information below (GUI).
-*/
 
 // app is the function called to start the entire application
 function app(people){
@@ -19,7 +16,8 @@ function app(people){
             mainMenu(foundPeopleBySingleTrait,people);
               break;
           case 'no':
-            let foundPeopleByMultiTraits;
+            let attributesWanted = multiTraitSearch(people);
+            let 
         }
       break;
     default:
@@ -32,10 +30,8 @@ function app(people){
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
-  /* Here we pass in the entire person object that we found in our search, 
-  as well as the entire original dataset of people. 
-  We need people in order to find descendants and other information that the user may want. */
 
+  
   if(!person){
     alert("Could not find that individual.");
     return app(people); // restart
@@ -128,6 +124,10 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+function formatInput(input){
+  input = input.toLowerCase().trim().split(" ");
+  return input;
 }
 function calculatePersonsAge(dob) {
   dob = new Date(dob)
@@ -273,16 +273,16 @@ function searchByOccupation(people) {
  return filteredPeople;
 }
 function selectingAttribute(people){
-  let response = promptFor("What attribute do with wish to search for (Gender, Date of Birth, Height, Weight, Eye Color, Occupation)?", chars);
+  let response = promptFor("What attribute do with wish to search for (Gender, DateofBirth, Height, Weight, Eyecolor, Occupation)?", chars);
   response.toLowerCase().trim().split(" ").join("");
   
   switch(response){
     case "gender":
       let peopleByGender = searchByGender(people);
       return peopleByGender;
-   // case "dateofbirth":
-    //  let peopleByDOB searchByDOB(people);
-    //  return peopleByDOB;
+    case "dateofbirth":
+     let peopleByDOB = searchByDOB(people);
+     return peopleByDOB;
   //  case "age":
     //  let peopleByAge = searchByAge(people);
     //  return peopleByAge;
@@ -306,6 +306,14 @@ function selectingAttribute(people){
 
 
 
+function multiTraitSearch(people){
+   let response = promptFor("What attribute do with wish to search for?" + 
+      "\n(Gender, DateOfBirth, Height, Weight, EyeColor, Occupation)?" +
+      "\n Please seperate attributes by a space and input as it is stated above.", chars);
+      response = formatInput(response);   
+      return response;
+      
+}
 
 
 
@@ -315,36 +323,30 @@ function selectingAttribute(people){
 
 
 
+function resultScreener(allResultsArray){
+  let response = promptFor("What attribute do with wish to search for?" + 
+      "\n(Gender, DateOfBirth, Height, Weight, EyeColor, Occupation)?" +
+      "\n Please seperate attributes by a space and input as it is stated above.", chars);
+      response = formatInput(response);
+      let j=0;
+      let results = [];
+      for(let i = 0; i <allResultsArray.length; i++){
+          allResultsArray.filter(function(el){
+              if(allResultsArray[i] === el){ 
+                j++                 
+                 
+                if (j===response.length && !results.includes(allResultsArray[i])){
 
-
-// test area
-let half = [{
-    "id": 693243224,
-    "firstName": "Joy",
-    "lastName": "Madden",
-    "gender": "female",
-    "dob": "4/20/1939",
-    "height": 69,
-    "weight": 199,
-    "eyeColor": "hazel",
-    "occupation": "doctor",
-    "parents": [],
-    "currentSpouse": null
-  },
-  {
-    "id": 888201200,
-    "firstName": "Mader",
-    "lastName": "Madden",
-    "gender": "male",
-    "dob": "5/6/1937",
-    "height": 76,
-    "weight": 205,
-    "eyeColor": "black",
-    "occupation": "landscaper",
-    "parents": [],
-    "currentSpouse": null
-  },]
-
-//mainMenu(half,data)
+                      results.push(allResultsArray[i]);
+                      j = 0
+                  }  
+                if (j === response.length){
+                  j = 0
+                }
+                   }
+        });
+      }
+  return results;    
+}
 
 

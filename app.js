@@ -45,11 +45,10 @@ function mainMenu(person, people){
     switch(displayOption){  
       case "info":
 
-        displayPerson(el);
+        displayPerson(el); // displays all information on a person
         break;
       case "family":
-        // TODO: get person's family
-        
+             findFamily(el, people);  // displays all immediate family members of person     
         break;
       case "descendants":
         // TODO: get person's descendants
@@ -61,20 +60,25 @@ function mainMenu(person, people){
       case "quit":
         return; // stop execution
       default:
-        return mainMenu(person, people); // ask again
+        return mainMenu(person, people); // ask again  
     }
   });
 }
+function findFamily(el, people) {
+    displaySpouse(el, people);
+    searchForParents(el, people);
+    lookForKids(el, people);
+}
+
 
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
       firstName = capitalizeName(firstName)
-      lastName = capitalizeName(lastName)       
+      lastName = capitalizeName(lastName)
       let filteredPeople = people.filter(function(el) {
         if(el.firstName === firstName && el.lastName === lastName) {
-     
-
+    
           return true;
 
     } 
@@ -130,7 +134,7 @@ function formatInput(input){
   return input;
 }
 function calculatePersonsAge(dob) {
-  dob = new Date(dob)
+  dob = new Date(dob);
   let timeDifference = Date.now() - dob.getTime();
   let ageInMilliseconds = new Date(timeDifference);
 
@@ -168,13 +172,8 @@ function searchByTrait(people){
     
            });
     } 
-         
-
+        
 }
-
-
-
-
 function searchByGender(people) {
   let gender = promptFor("What gender is your person? Enter 'male' or 'female'", chars);
   let filteredPeople = people.filter(function(el) {
@@ -187,6 +186,78 @@ function searchByGender(people) {
   });
  return filteredPeople;
 }
+
+function getSpouse (person, people) {
+   let spouse = people.filter(function(el){
+    if (person.currentSpouse === el.id) {
+      
+      return true;
+    }
+    
+  });
+return spouse;
+   }
+
+function lookForKids (person, people) {
+  let kid = people.filter(function(el) {
+    if (person.id === el.parents[0]) {
+      
+      return true;
+    }
+  });
+  for (let i = 0; i < kid.length; i++){
+    alert("Kids: " + kid[i].firstName + " " + kid[i].lastName + "\n");
+  }
+  
+}
+
+function searchForKids (person, people) {
+  let personsFamily;
+  for (let i = 0; i < person.parents.length; i++) {
+    parent = person.parents[i];
+    foundParent = people.filter(function(el){
+        if (el.id === parent) {
+            return true; 
+        }
+      });
+    let personsParent = foundParent[0].id; //the original person's parent
+
+      if (personsParent = people.id) {
+        alert(person.firstName);
+      }
+    }
+}
+
+function displaySpouse(person, people) {
+    if (person.currentSpouse != null) {
+        let foundSpouse = getSpouse(person, people);
+        let spouseString = foundSpouse[0];
+            var personsFamily = "Spouse: " + spouseString.firstName + " " + spouseString.lastName + "\n"; 
+        
+    }
+    alert(personsFamily);
+}
+
+function searchForParents (person, people) {
+  let personsFamily;
+  for (let i = 0; i < person.parents.length; i++) {
+      parent = person.parents[i];
+     
+          foundParent =  people.filter(function(el){
+          if (el.id === parent) {
+            return true;
+          }
+      });
+      alert( "Parent: " + foundParent[0].firstName + " " + foundParent[0].lastName + "\n");
+  }
+  
+}
+
+
+
+
+
+
 /*
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
@@ -221,8 +292,6 @@ function searchByHeight(people) {
   let height = promptFor("How tall is the person in inches?", chars);
   let filteredPeople = people.filter(function(el) {
         if(el.height == height) {
-     
-
           return true;
 
     } 
@@ -304,8 +373,6 @@ function selectingAttribute(people){
   }
 }
 
-
-
 function multiTraitSearch(people){
    let response = promptFor("What attribute do with wish to search for?" + 
       "\n(Gender, DateOfBirth, Height, Weight, EyeColor, Occupation)?" +
@@ -314,13 +381,6 @@ function multiTraitSearch(people){
       return response;
       
 }
-
-
-
-
-
-
-
 
 
 function resultScreener(allResultsArray){
@@ -348,5 +408,6 @@ function resultScreener(allResultsArray){
       }
   return results;    
 }
+
 
 

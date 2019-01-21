@@ -53,7 +53,9 @@ function mainMenu(person, people){
         break;
       case "family":
         // TODO: get person's family
-        
+        //let parents = searchForParents(person, people);
+       //console.log(parents);
+       displaySpouse(el, people);
         break;
       case "descendants":
         // TODO: get person's descendants
@@ -77,7 +79,7 @@ function searchByName(people){
       lastName = capitalizeName(lastName)       
       let filteredPeople = people.filter(function(el) {
         if(el.firstName === firstName && el.lastName === lastName) {
-     
+    
 
           return true;
 
@@ -131,7 +133,7 @@ function chars(input){
 }
 function calculatePersonsAge(dob) {
   dob = new Date(dob);
-  let timeDifference = Date.now() - dob.getTime();f
+  let timeDifference = Date.now() - dob.getTime();
   let ageInMilliseconds = new Date(timeDifference);
 
   return Math.abs(ageInMilliseconds.getUTCFullYear() - 1970);
@@ -171,10 +173,6 @@ function searchByTrait(people){
          
 
 }
-
-
-
-
 function searchByGender(people) {
   let gender = promptFor("What gender is your person? Enter 'male' or 'female'", chars);
   let filteredPeople = people.filter(function(el) {
@@ -187,6 +185,57 @@ function searchByGender(people) {
   });
  return filteredPeople;
 }
+
+function getSpouse (person, people) {
+   let spouse = people.filter(function(el){
+    if (person.currentSpouse === el.id) {
+      console.log(person.currentSpouse);
+      return true;
+    }
+    
+  });
+return spouse;
+   }
+
+function displaySpouse(person, people) {
+    if (person.currentSpouse != null) {
+        let foundSpouse = getSpouse(person, people);
+        let spouseString = foundSpouse[0];
+            var personsFamily = "Spouse: " + spouseString.firstName + " " + spouseString.lastName + "\n"; 
+        
+    }
+    alert(personsFamily);
+}
+/*
+function searchForSpouse(person, people){
+    let filteredPeople = people.filter(function(el) {
+      if (el.currentSpouse === el.id) {
+        return true;
+      }
+    });
+}*/
+function searchForParents (person, people) {
+  var personsFamily;
+  for (let i = 0; i < parents.length; i++) {
+      personsFamily += "Parent:" + parents[i].firstName + " " + parents[i].lastName + "/n";
+  }
+}
+/*function searchForParents(person, people) {
+
+  let filteredPeople = people.filter(function(el) {
+    for (let i = 0; i < el.parents.length; i++){
+
+
+    if (el.parents[i] === el.id) {
+      return true;  
+    }
+  }
+  });
+  return filteredPeople;
+}
+*/
+
+
 /*
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
@@ -303,48 +352,5 @@ function selectingAttribute(people){
       break;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// test area
-let half = [{
-    "id": 693243224,
-    "firstName": "Joy",
-    "lastName": "Madden",
-    "gender": "female",
-    "dob": "4/20/1939",
-    "height": 69,
-    "weight": 199,
-    "eyeColor": "hazel",
-    "occupation": "doctor",
-    "parents": [],
-    "currentSpouse": null
-  },
-  {
-    "id": 888201200,
-    "firstName": "Mader",
-    "lastName": "Madden",
-    "gender": "male",
-    "dob": "5/6/1937",
-    "height": 76,
-    "weight": 205,
-    "eyeColor": "black",
-    "occupation": "landscaper",
-    "parents": [],
-    "currentSpouse": null
-  },]
-
-//mainMenu(half,data)
 
 

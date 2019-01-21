@@ -1,8 +1,4 @@
-/*
-Build all of your functions for displaying and gathering information below (GUI).
-*/
 
-// app is the function called to start the entire application
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
@@ -29,12 +25,7 @@ function app(people){
   }
 }
 
-// Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-
-  /* Here we pass in the entire person object that we found in our search, 
-  as well as the entire original dataset of people. 
-  We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
     alert("Could not find that individual.");
@@ -52,18 +43,12 @@ function mainMenu(person, people){
         displayPerson(el);
         break;
       case "family":
-        // TODO: get person's family
-        //let parents = searchForParents(person, people);
-       //console.log(parents);
-       findFamily(el, people);
-       /*
-       displaySpouse(el, people);
-       searchForParents(el, people);
-       lookForKids(el, people);
-       */
+     
+      findFamily(el, people);
+        
         break;
       case "descendants":
-        // TODO: get person's descendants
+        
 
         break;
       case "restart":
@@ -82,7 +67,6 @@ function findFamily(el, people) {
     lookForKids(el, people);
 }
 
-
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
@@ -97,8 +81,7 @@ function searchByName(people){
     
   });
  return filteredPeople;
-  //mainMenu(filteredPeople,people)
- //runForMultiplePeople
+
 }
 
 // alerts a list of people
@@ -109,8 +92,7 @@ function displayPeople(people){
 }
 
 function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
+ 
 
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
@@ -212,6 +194,7 @@ function lookForKids (person, people) {
       
       return true;
     }
+
   });
   for (let i = 0; i < kid.length; i++){
     alert("Kids: " + kid[i].firstName + " " + kid[i].lastName + "\n");
@@ -219,22 +202,6 @@ function lookForKids (person, people) {
   
 }
 
-function searchForKids (person, people) {
-  let personsFamily;
-  for (let i = 0; i < person.parents.length; i++) {
-    parent = person.parents[i];
-    foundParent = people.filter(function(el){
-        if (el.id === parent) {
-            return true; 
-        }
-      });
-    let personsParent = foundParent[0].id; //the original person's parent
-
-      if (personsParent = people.id) {
-        alert(person.firstName);
-      }
-    }
-}
 
 function displaySpouse(person, people) {
     if (person.currentSpouse != null) {
@@ -243,7 +210,7 @@ function displaySpouse(person, people) {
             var personsFamily = "Spouse: " + spouseString.firstName + " " + spouseString.lastName + "\n"; 
         
     }
-    alert(personsFamily);
+      alert(personsFamily);
 }
 
 function searchForParents (person, people) {
@@ -260,22 +227,6 @@ function searchForParents (person, people) {
   }
   
 }
-
-
-/*function searchForParents(person, people) {
-
-  let filteredPeople = people.filter(function(el) {
-    for (let i = 0; i < el.parents.length; i++){
-
-
-    if (el.parents[i] === el.id) {
-      return true;  
-    }
-  }
-  });
-  return filteredPeople;
-}
-*/
 
 
 /*

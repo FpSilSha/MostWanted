@@ -20,7 +20,7 @@ function app(people){
             attributeCap = functionNameInputFix(attributeCap);
             let attributeWriter = attributeCap
             let finalArray = multiTraitArrayBuilder(attributesWanted,people);
-            let foundPeopleByMultiTraits = resultScreener(finalArray);
+            let foundPeopleByMultiTraits = resultScreener(finalArray, attributesWanted);
             mainMenu(foundPeopleByMultiTraits, people);
         }
       break;
@@ -84,6 +84,9 @@ function searchByName(people){
     } 
     
   });
+ if(filteredPeople.length=== 0){
+  alert("Name not found in data base")
+ }
  return filteredPeople;
 
 }
@@ -222,20 +225,25 @@ function lookForKids (person, people) {
  
 }
 
-function lookForDescendants (person, people) {
-  let descendants = people.filter(function(el) {
-    if (person.id === el.parents[0]) {
+
+function lookForDescendants(person,people){
+  let descendants = people.filter(function(el){
+        if (person.id === el.parents[0] || person.id===el.parents[1]){
+          return true;
+        }
+      })
+      for(let i = 0;i < descendants.length; i++){
+        alert("Found " + descendants[i].firstName + " " + descendants[i].lastName + 
+          " who is a child of "+ person.firstName + " " + person.lastName + "\n");
+
+        lookForDescendants(descendants[i],people);
+        
+      }
+      return;
       
-      return true;
-    }
-  });
-  for (let i = 0; i < descendants.length; i++){
-    alert("Found " + descendants[i].firstName + " " + descendants[i].lastName +
-      " who is a child of "+ person.firstName + " " + person.lastName+"\n");
-  }
-  lookForDescendants(descendants,people);
-  return;
+   
 }
+
 
 function displaySpouse(person, people) {
     if (person.currentSpouse != null) {
@@ -396,15 +404,41 @@ function multiTraitSearch(){
 function multiTraitArrayBuilder(arrayOfTraits,people){
   let arrayResult = [];
   for(let i = 0;i< arrayOfTraits.length;i++){
-   trait();
-  }
+       switch(arrayOfTraits[i]){
+          case "gender":
+              let peopleByGender = searchByGender(people);
+              return peopleByGender;
+          case "dateofbirth":
+              let peopleByDOB = searchByDOB(people);
+              return peopleByDOB;
+      //  case "age":
+          //  let peopleByAge = searchByAge(people);
+          //  return peopleByAge;
+          case "height":
+              let peopleByHeight = searchByHeight(people);
+              return peopleByHeight;
+          case "weight":
+              let peopleByWeight = searchByWeight(people);
+              return peopleByWeight;
+          case "eyecolor":
+              let peopleByEyeColor = searchByEyeColor(people);
+              return peopleByEyeColor;
+          case "occupation":
+              let peopleByOccupation = searchByOccupation(people);
+              return peopleByOccupation;
+          default:
+              console.log("Do you even know who you're looking for? Start the search again when you find out SOMETHING.")
+              break;
+
+      }
+     
+  } 
 
 return arrayResult;
-
-
 }
 
-function resultScreener(allResultsArray){
+
+function resultScreener(allResultsArray,response){
       let j=0;
       let results = [];
       for(let i = 0; i <allResultsArray.length; i++){

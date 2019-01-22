@@ -15,7 +15,8 @@ function app(people){
             mainMenu(foundPeopleBySingleTrait,people);
               break;
           case 'no':
-            let foundPeopleByMultiTraits;
+            let attributesWanted = multiTraitSearch(people);
+            let 
         }
       break;
     default:
@@ -40,12 +41,11 @@ function mainMenu(person, people){
     switch(displayOption){  
       case "info":
 
-        displayPerson(el);
+        displayPerson(el); // displays all information on a person
         break;
       case "family":
-     
-      findFamily(el, people);
-        
+            findFamily(el, people);  // displays all immediate family members of person     
+
         break;
       case "descendants":
         
@@ -122,6 +122,10 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+function formatInput(input){
+  input = input.toLowerCase().trim().split(" ");
+  return input;
 }
 function calculatePersonsAge(dob) {
   dob = new Date(dob);
@@ -202,6 +206,18 @@ function lookForKids (person, people) {
   
 }
 
+function lookForDescendants (person, people) {
+  let descendants = people.filter(function(el) {
+    if (person.id === el.parents[0]) {
+      return true;
+    }
+  });
+  for (let i = 0; i < descendants.length; i++) {
+    alert("Found " + descendants[i].firstName + " " + descendants[i].lastName + " who is a descendant of " + person.firstName + " " + person.lastName + "\n");
+  }
+  lookForDescendants(descendants, people);
+}
+
 
 function displaySpouse(person, people) {
     if (person.currentSpouse != null) {
@@ -227,7 +243,6 @@ function searchForParents (person, people) {
   }
   
 }
-
 
 /*
 function searchByAge(people) {
@@ -313,16 +328,16 @@ function searchByOccupation(people) {
  return filteredPeople;
 }
 function selectingAttribute(people){
-  let response = promptFor("What attribute do with wish to search for (Gender, Date of Birth, Height, Weight, Eye Color, Occupation)?", chars);
+  let response = promptFor("What attribute do with wish to search for (Gender, DateofBirth, Height, Weight, Eyecolor, Occupation)?", chars);
   response.toLowerCase().trim().split(" ").join("");
   
   switch(response){
     case "gender":
       let peopleByGender = searchByGender(people);
       return peopleByGender;
-   // case "dateofbirth":
-    //  let peopleByDOB searchByDOB(people);
-    //  return peopleByDOB;
+    case "dateofbirth":
+     let peopleByDOB = searchByDOB(people);
+     return peopleByDOB;
   //  case "age":
     //  let peopleByAge = searchByAge(people);
     //  return peopleByAge;
@@ -342,4 +357,40 @@ function selectingAttribute(people){
       console.log("Do you even know who you're looking for? Start the search again when you find out SOMETHING.")
       break;
   }
+}
+
+function multiTraitSearch(people){
+   let response = promptFor("What attribute do with wish to search for?" + 
+      "\n(Gender, DateOfBirth, Height, Weight, EyeColor, Occupation)?" +
+      "\n Please seperate attributes by a space and input as it is stated above.", chars);
+      response = formatInput(response);   
+      return response;
+      
+}
+
+
+function resultScreener(allResultsArray){
+  let response = promptFor("What attribute do with wish to search for?" + 
+      "\n(Gender, DateOfBirth, Height, Weight, EyeColor, Occupation)?" +
+      "\n Please seperate attributes by a space and input as it is stated above.", chars);
+      response = formatInput(response);
+      let j=0;
+      let results = [];
+      for(let i = 0; i <allResultsArray.length; i++){
+          allResultsArray.filter(function(el){
+              if(allResultsArray[i] === el){ 
+                j++                 
+                 
+                if (j===response.length && !results.includes(allResultsArray[i])){
+
+                      results.push(allResultsArray[i]);
+                      j = 0
+                  }  
+                if (j === response.length){
+                  j = 0
+                }
+                   }
+        });
+      }
+  return results;    
 }

@@ -16,8 +16,14 @@ function app(people){
             mainMenu(foundPeopleBySingleTrait,people);
               break;
           case 'no':
-            let attributesWanted = multiTraitSearch(people);
-            let 
+            let attributesWanted = multiTraitSearch();
+            console.log (attributesWanted);
+            let attributeCap = attributesWanted;
+            attributeCap = functionNameInputFix(attributeCap);
+            let attributeWriter = attributeCap
+            let finalArray = multiTraitArrayBuilder(attributesWanted,people);
+            let foundPeopleByMultiTraits = resultScreener(finalArray);
+            mainMenu(foundPeopleByMultiTraits, people);
         }
       break;
     default:
@@ -51,7 +57,7 @@ function mainMenu(person, people){
              findFamily(el, people);  // displays all immediate family members of person     
         break;
       case "descendants":
-        // TODO: get person's descendants
+        lookForDescendants(el, people);
 
         break;
       case "restart":
@@ -133,6 +139,15 @@ function formatInput(input){
   input = input.toLowerCase().trim().split(" ");
   return input;
 }
+function functionNameInputFix(input){
+  input = input.join(" ");
+  console.log(input);
+  input = capitalizeName(input);
+  console.log(input);
+  input = input.split(" ");
+  console.log(input);
+  return input;
+}
 function calculatePersonsAge(dob) {
   dob = new Date(dob);
   let timeDifference = Date.now() - dob.getTime();
@@ -199,47 +214,59 @@ return spouse;
    }
 
 function lookForKids (person, people) {
+  
   let kid = people.filter(function(el) {
-    if (person.id === el.parents[0]) {
+    for (let i = 0; i<el.parents.length; i++)
+    if (person.id === el.parents[i]) {
       
       return true;
     }
   });
   for (let i = 0; i < kid.length; i++){
-    alert("Kids: " + kid[i].firstName + " " + kid[i].lastName + "\n");
+    alert("Found " + kid[i].firstName + " " + kid[i].lastName +
+      " who is a child of "+ person.firstName + " " + person.lastName+"\n");
   }
-  
+ 
 }
 
-function searchForKids (person, people) {
-  let personsFamily;
-  for (let i = 0; i < person.parents.length; i++) {
-    parent = person.parents[i];
-    foundParent = people.filter(function(el){
-        if (el.id === parent) {
-            return true; 
-        }
-      });
-    let personsParent = foundParent[0].id; //the original person's parent
 
-      if (personsParent = people.id) {
-        alert(person.firstName);
-      }
+function lookForDescendants (person, people) {
+  let descendants = people.filter(function(el) {
+    if (person.id === el.parents[0]) {
+      
+      return true;
     }
+  });
+  for (let i = 0; i < descendants.length; i++){
+    alert("Found " + descendants[i].firstName + " " + descendants[i].lastName +
+      " who is a child of "+ person.firstName + " " + person.lastName+"\n");
+  }
+  lookForDescendants(descendants,people)
 }
+
+
+
+
 
 function displaySpouse(person, people) {
     if (person.currentSpouse != null) {
         let foundSpouse = getSpouse(person, people);
         let spouseString = foundSpouse[0];
-            var personsFamily = "Spouse: " + spouseString.firstName + " " + spouseString.lastName + "\n"; 
+            var personsFamily = "Spouse found: " + spouseString.firstName + " " + spouseString.lastName + "\n"; 
         
-    }
+    
     alert(personsFamily);
+  } else
+  {
+    alert("No spouse currently recorded");
+  }
 }
 
 function searchForParents (person, people) {
   let personsFamily;
+  if(person.parents == false){
+    alert("No recorded parents")
+  }
   for (let i = 0; i < person.parents.length; i++) {
       parent = person.parents[i];
      
@@ -248,7 +275,7 @@ function searchForParents (person, people) {
             return true;
           }
       });
-      alert( "Parent: " + foundParent[0].firstName + " " + foundParent[0].lastName + "\n");
+      alert( "Parent found: " + foundParent[0].firstName + " " + foundParent[0].lastName + "\n");
   }
   
 }
@@ -373,7 +400,7 @@ function selectingAttribute(people){
   }
 }
 
-function multiTraitSearch(people){
+function multiTraitSearch(){
    let response = promptFor("What attribute do with wish to search for?" + 
       "\n(Gender, DateOfBirth, Height, Weight, EyeColor, Occupation)?" +
       "\n Please seperate attributes by a space and input as it is stated above.", chars);
@@ -381,13 +408,18 @@ function multiTraitSearch(people){
       return response;
       
 }
+function multiTraitArrayBuilder(arrayOfTraits,people){
+  let arrayResult = [];
+  for(let i = 0;i< arrayOfTraits.length;i++){
+   trait();
+  }
 
+return arrayResult;
+
+
+}
 
 function resultScreener(allResultsArray){
-  let response = promptFor("What attribute do with wish to search for?" + 
-      "\n(Gender, DateOfBirth, Height, Weight, EyeColor, Occupation)?" +
-      "\n Please seperate attributes by a space and input as it is stated above.", chars);
-      response = formatInput(response);
       let j=0;
       let results = [];
       for(let i = 0; i <allResultsArray.length; i++){

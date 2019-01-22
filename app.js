@@ -255,25 +255,6 @@ function lookForDescendants (person, people) {
 */
 
 function lookForDescendants(person,people){
-  if(person === false || person[0] === false){
-    alert("There aren't any more descendants in this bloodline")
-    return;
-  }
-  let j = 0;
-  if (person === "Array"){
-    person.forEach(function(ell){
-      let descendants = people.filter(function(el){
-        if (person.id === el.parents[0] || person.id===el.parents[1]){
-          return true;
-        }
-      })
-      for(let i = 0;i<descendants.length;i++){
-        alert("Found " + descendants[i].firstName + " " + descendants[i].lastName + 
-          " who is a child of "+ person.firstName + " " + person.lastName+"\n");
-      }
-    })
-  } 
-  else{
   let descendants = people.filter(function(el){
         if (person.id === el.parents[0] || person.id===el.parents[1]){
           return true;
@@ -287,7 +268,7 @@ function lookForDescendants(person,people){
         
       }
       return;
-    }  
+      
    
 }
 

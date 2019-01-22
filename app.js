@@ -58,7 +58,7 @@ function mainMenu(person, people){
         break;
       case "descendants":
         lookForDescendants(el, people);
-
+        alert("End of blood line")
         break;
       case "restart":
         app(people); // restart
@@ -232,28 +232,6 @@ function lookForKids (person, people) {
  
 }
 
-/*
-function lookForDescendants (person, people) {
-  if (typeOf(person)== array){
-     person.forEach(function(ell){
-     let descendants = people.filter(function(el) {
-        if (person.id === el.parents[0]) {
-      
-         return true;
-        }
-      });
-       for (let i = 0; i < descendants.length; i++){
-        alert("Found " + descendants[i].firstName + " " + descendants[i].lastName +
-        " who is a child of "+ person.firstName + " " + person.lastName+"\n");
-      }
-     }
-        if(descendants[0] == true){
-          lookForDescendants(descendants,people)
-    }
-}
-}
-*/
-
 function lookForDescendants(person,people){
   let descendants = people.filter(function(el){
         if (person.id === el.parents[0] || person.id===el.parents[1]){
@@ -313,6 +291,9 @@ function searchForParents (person, people) {
 /*
 function searchByAge(people) {
   let age = promptFor("What is the person's age?", chars);
+// Maybe do a map function to run dob into age calc and return. Or call the 
+// function twice so that it calculates inputed once, and el.dob everytime. 
+
   let filteredPeople = people.filter(function(el) {
         if(el.age === age) {
      
@@ -324,7 +305,7 @@ function searchByAge(people) {
   });
  return filteredPeople;
 }
-
+*/
 function searchByDOB(people) {
   let dob = promptFor("What is the person's Date of Birth? Please enter in m/d/yyyy format", chars);
   let filteredPeople = people.filter(function(el) {
@@ -339,7 +320,7 @@ function searchByDOB(people) {
  return filteredPeople;
 }
 
-*/
+
 function searchByHeight(people) {
   let height = promptFor("How tall is the person in inches?", chars);
   let filteredPeople = people.filter(function(el) {
@@ -439,25 +420,30 @@ function multiTraitArrayBuilder(arrayOfTraits,people){
        switch(arrayOfTraits[i]){
           case "gender":
               let peopleByGender = searchByGender(people);
-              return peopleByGender;
+            arrayResult.concat(peopleByGender)
           case "dateofbirth":
               let peopleByDOB = searchByDOB(people);
-              return peopleByDOB;
+                        arrayResult.concat(peopleByDOB)
+
       //  case "age":
           //  let peopleByAge = searchByAge(people);
           //  return peopleByAge;
           case "height":
               let peopleByHeight = searchByHeight(people);
-              return peopleByHeight;
+                        arrayResult.concat(peopleByHeight)
+
           case "weight":
               let peopleByWeight = searchByWeight(people);
-              return peopleByWeight;
+                        arrayResult.concat(peopleByWeight)
+
           case "eyecolor":
               let peopleByEyeColor = searchByEyeColor(people);
-              return peopleByEyeColor;
+                         arrayResult.concat(peopleByEyeColor)
+
           case "occupation":
               let peopleByOccupation = searchByOccupation(people);
-              return peopleByOccupation;
+                        arrayResult.concat(peopleByOccupation)
+
           default:
               console.log("Do you even know who you're looking for? Start the search again when you find out SOMETHING.")
               break;

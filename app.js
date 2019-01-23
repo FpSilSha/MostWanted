@@ -17,11 +17,7 @@ function app(people){
               break;
           case 'no':
             let attributesWanted = multiTraitSearch();
-            console.log (attributesWanted);
-            let attributeCap = attributesWanted;
-            attributeCap = functionNameInputFix(attributeCap);
-            let attributeWriter = attributeCap
-            let finalArray = multiTraitArrayBuilder(attributesWanted,people);
+            let finalArray = multiTraitFilter(attributesWanted,people);
             let foundPeopleByMultiTraits = resultScreener(finalArray, attributesWanted);
             mainMenu(foundPeopleByMultiTraits, people);
         }
@@ -38,7 +34,7 @@ function mainMenu(person, people){
 
 
   
-  if(!person){
+  if(!person || !person[0]){
     alert("Could not find that individual.");
     return app(people); // restart
   }
@@ -336,7 +332,7 @@ function searchByHeight(people) {
 function searchByWeight(people) {
   let weight = promptFor("How much does your person weigh in pounds?", chars);
   let filteredPeople = people.filter(function(el) {
-        if(el.weight === weight.toLowerCase()) {
+        if(el.weight == weight.toLowerCase()) {
      
 
           return true;
@@ -410,71 +406,71 @@ function multiTraitSearch(){
    let response = promptFor("What attribute do with wish to search for?" + 
       "\n(Gender, DateOfBirth, Height, Weight, EyeColor, Occupation)?" +
       "\n Please seperate attributes by a space and input as it is stated above.", chars);
-      response = formatInput(response);   
+      response = formatInput(response);  
       return response;
       
 }
-function multiTraitArrayBuilder(arrayOfTraits,people){
-  let arrayResult = [];
-  for(let i = 0;i< arrayOfTraits.length;i++){
-       switch(arrayOfTraits[i]){
-          case "gender":
-              let peopleByGender = searchByGender(people);
-            arrayResult.concat(peopleByGender)
-          case "dateofbirth":
-              let peopleByDOB = searchByDOB(people);
-                        arrayResult.concat(peopleByDOB)
 
-      //  case "age":
-          //  let peopleByAge = searchByAge(people);
-          //  return peopleByAge;
-          case "height":
-              let peopleByHeight = searchByHeight(people);
-                        arrayResult.concat(peopleByHeight)
-
-          case "weight":
-              let peopleByWeight = searchByWeight(people);
-                        arrayResult.concat(peopleByWeight)
-
-          case "eyecolor":
-              let peopleByEyeColor = searchByEyeColor(people);
-                         arrayResult.concat(peopleByEyeColor)
-
-          case "occupation":
-              let peopleByOccupation = searchByOccupation(people);
-                        arrayResult.concat(peopleByOccupation)
-
-          default:
-              console.log("Do you even know who you're looking for? Start the search again when you find out SOMETHING.")
-              break;
+function multiTraitFilter (response, people){
+    let result =[];
+    response.forEach(function(el){
+      if(el === "gender"){
+        let foundpeople = searchByGender(people);
+        result = result.concat(foundpeople);
 
       }
-     
-  } 
-
-return arrayResult;
+      if(el === "height"){
+          let foundpeople = searchByHeight(people);
+         result = result.concat(foundpeople);
+      }
+      if(el === "weight"){
+          let foundpeople = searchByWeight(people);
+         result = result.concat(foundpeople);
+      }
+      if(el === "dateofbirth"){
+          let foundpeople = searchByDOB(people);
+         result = result.concat(foundpeople);
+      }
+      if(el === "eyecolor"){
+          let foundpeople = searchByEyeColor(people);
+         result = result.concat(foundpeople);
+      }
+      if(el === "occupation"){
+          let foundpeople = searchByOccupation(people);
+         result = result.concat(foundpeople);
+      }
+    });
+    return result;  
 }
 
 
 function resultScreener(allResultsArray,response){
       let j=0;
+      let k=1
       let results = [];
       for(let i = 0; i <allResultsArray.length; i++){
           allResultsArray.filter(function(el){
+              
               if(allResultsArray[i] === el){ 
-                j++                 
-                 
-                if (j===response.length && !results.includes(allResultsArray[i])){
+                j++
+                
+                 if (j===response.length && !results.includes(allResultsArray[i])){
 
                       results.push(allResultsArray[i]);
                       j = 0
                   }  
-                if (j === response.length){
+                  if (j === response.length){
                   j = 0
+                  } }
+              if (k === allResultsArray.length){
+                  j=0
+                  k=0
                 }
-                   }
+                   
+               
+             k++ 
         });
-      }
+      } 
   return results;    
 }
 

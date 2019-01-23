@@ -1,5 +1,3 @@
-
-// app is the function called to start the entire application
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
@@ -29,12 +27,11 @@ function app(people){
   }
 }
 
-// Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-
 
   
   if(!person || !person[0]){
+
     alert("Could not find that individual.");
     return app(people); // restart
   }
@@ -50,7 +47,8 @@ function mainMenu(person, people){
         displayPerson(el); // displays all information on a person
         break;
       case "family":
-             findFamily(el, people);  // displays all immediate family members of person     
+            findFamily(el, people);  // displays all immediate family members of person     
+
         break;
       case "descendants":
         lookForDescendants(el, people);
@@ -72,7 +70,6 @@ function findFamily(el, people) {
     lookForKids(el, people);
 }
 
-
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
@@ -90,8 +87,7 @@ function searchByName(people){
   alert("Name not found in data base")
  }
  return filteredPeople;
-  //mainMenu(filteredPeople,people)
- //runForMultiplePeople
+
 }
 
 // alerts a list of people
@@ -102,8 +98,7 @@ function displayPeople(people){
 }
 
 function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
+ 
 
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
@@ -220,6 +215,7 @@ function lookForKids (person, people) {
       
       return true;
     }
+
   });
   for (let i = 0; i < kid.length; i++){
     alert("Found " + kid[i].firstName + " " + kid[i].lastName +
@@ -234,11 +230,11 @@ function lookForDescendants(person,people){
           return true;
         }
       })
-      for(let i = 0;i<descendants.length;i++){
+      for(let i = 0;i < descendants.length; i++){
         alert("Found " + descendants[i].firstName + " " + descendants[i].lastName + 
-          " who is a child of "+ person.firstName + " " + person.lastName+"\n");
+          " who is a child of "+ person.firstName + " " + person.lastName + "\n");
 
-        lookForDescendants(descendants[i],people)
+        lookForDescendants(descendants[i],people);
         
       }
       return;
@@ -253,12 +249,13 @@ function displaySpouse(person, people) {
         let spouseString = foundSpouse[0];
             var personsFamily = "Spouse found: " + spouseString.firstName + " " + spouseString.lastName + "\n"; 
         
-    
+ 
     alert(personsFamily);
   } else
   {
     alert("No spouse currently recorded");
   }
+
 }
 
 function searchForParents (person, people) {
@@ -278,11 +275,6 @@ function searchForParents (person, people) {
   }
   
 }
-
-
-
-
-
 
 /*
 function searchByAge(people) {
@@ -460,6 +452,7 @@ function resultScreener(allResultsArray,response){
                       j = 0
                   }  
                   if (j === response.length){
+
                   j = 0
                   } }
               if (k === allResultsArray.length){
@@ -473,6 +466,3 @@ function resultScreener(allResultsArray,response){
       } 
   return results;    
 }
-
-
-

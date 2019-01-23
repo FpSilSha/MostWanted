@@ -45,18 +45,16 @@ function mainMenu(person, people){
       case "info":
 
         displayPerson(el); // displays all information on a person
-        break;
+        return mainMenu(person, people)
       case "family":
-            findFamily(el, people);  // displays all immediate family members of person     
-
-        break;
+            findFamily(el, people);  // displays all immediate family members of person
+        return mainMenu(person, people)
       case "descendants":
         lookForDescendants(el, people);
         alert("End of blood line")
-        break;
+        return mainMenu(person, people)
       case "restart":
-        app(people); // restart
-        break;
+       return app(people); // restart
       case "quit":
         return; // stop execution
       default:
@@ -451,16 +449,11 @@ function resultScreener(allResultsArray,response){
                       results.push(allResultsArray[i]);
                       j = 0
                   }  
-                  if (j === response.length){
-
-                  j = 0
-                  } }
+              }
               if (k === allResultsArray.length){
                   j=0
                   k=0
                 }
-                   
-               
              k++ 
         });
       } 
